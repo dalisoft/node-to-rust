@@ -1,3 +1,4 @@
+[[chapter-5]]
 = Borrowing & Ownership
 
 == Introduction
@@ -292,4 +293,4 @@ Interview tip: the answer is "JavaScript is pass by value, except for all ``Obje
 
 == Wrap-up
 
-Ownership is a core, recurring topic in Rust. We needed to dive into it at a high level before we deal with Strings link:./chapter-6-strings-part1.adoc[Chapter 6: Strings, part 1].
+Ownership is a core, recurring topic in Rust. We needed to dive into it at a high level before we deal with Strings <<chapter-6,Chapter 6: Strings, part 1>>.

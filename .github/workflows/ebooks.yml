@@ -1,0 +1,60 @@
+name: Build and release ebooks
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '7 4 * * *' # Daily around 09:00 GMT+5; GitHub may delay schedules.
+permissions:
+  contents: write
+concurrency:
+  group: ebooks-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  ebooks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Skip unchanged released inputs
+        id: inputs
+        run: python3 scripts/release.py check
+      - if: steps.inputs.outputs.changed == 'true'
+        uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8 # v1.327.0
+        with:
+          ruby-version: '4.0.7'
+      - if: steps.inputs.outputs.changed == 'true'
+        run: sh scripts/ebooks.sh deps
+      - name: Stage isolated converter (no system installation)
+        if: steps.inputs.outputs.changed == 'true'
+        run: |
+          mkdir -p .cache/calibre-debs .cache/calibre-libs .cache/calibre
+          (cd .cache/calibre-debs && apt download \
+            libegl1 libopengl0 libglvnd0 libxcb-cursor0 libxcb-image0 \
+            libxcb-render-util0 libxcb-util1 libxcb-xinerama0 libxkbcommon-x11-0)
+          for deb in .cache/calibre-debs/*.deb; do
+            dpkg-deb -x "$deb" .cache/calibre-libs
+          done
+          curl --fail --location --show-error --silent \
+            --output .cache/calibre-installer.sh https://download.calibre-ebook.com/linux-installer.sh
+          sh .cache/calibre-installer.sh "install_dir=$PWD/.cache/calibre" isolated=y version=9.15.0
+          echo "LD_LIBRARY_PATH=$PWD/.cache/calibre-libs/usr/lib/x86_64-linux-gnu" >> "$GITHUB_ENV"
+          echo "EBOOK_CONVERT=$PWD/.cache/calibre/calibre/ebook-convert" >> "$GITHUB_ENV"
+          echo 'QT_QPA_PLATFORM=offscreen' >> "$GITHUB_ENV"
+      - if: steps.inputs.outputs.changed == 'true'
+        run: sh scripts/ebooks.sh build
+      - if: steps.inputs.outputs.changed == 'true'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: from-javascript-to-rust-ebooks
+          path: |
+            output/from-javascript-to-rust.epub
+            output/from-javascript-to-rust.azw3
+          if-no-files-found: error
+      - name: Publish dated release
+        if: steps.inputs.outputs.changed == 'true' && github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
+        run: python3 scripts/release.py publish

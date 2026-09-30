@@ -1,7 +1,7 @@
 :author: Jarrod Overson
 :email: jsoverson@gmail.com
 :revnumber: v0.1
-:revdate: 02.22.2022
+:revdate: 2022-02-22
 :notitle:
 :doctype: book
 :chapter-label:
@@ -9,7 +9,9 @@
 :toclevels: 2
 :sectnums: |,all|
 :toc-title: Table of Contents
-:front-cover-image: image::images/cover.png[leveloffset=0]
+:lang: en
+:imagesdir: images
+:front-cover-image: image:cover.png[]
 :description: Learn Rust by mapping what you already know from JavaScript and node.js to their counterparts in the Rust ecosystem
 
 = Go From JavaScript to Rust

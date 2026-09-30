@@ -1,3 +1,4 @@
+[[chapter-10]]
 = From Mixins to Traits
 
 == Introduction
@@ -155,6 +156,7 @@ For more information about this error, try `rustc --explain E0562`.
 
 But... we _are_ trying to use it as a method return type... What gives?
 
+[[impl-vs-dyn]]
 === `impl` vs `dyn`
 
 To use traits here we need to use `dyn [trait]`. Using `dyn [trait]` vs `impl [trait]` is a matter of whether or not Rust needs or is able to know a value's concrete type at compile time. We can't use `impl std::fmt::Debug` here because every implementation might return a different actual type. Using `dyn` is like crossing a barrier where you trade optimizations for flexibility. Once a value crosses the `dyn` barrier, it loses its type information and is essentially just a blob of data and a pointer to the methods on a trait.

@@ -1,3 +1,4 @@
+[[chapter-14]]
 = Managing Errors
 
 == Introduction
@@ -48,7 +49,7 @@ Boxing your errors relies on those errors implementing the https://doc.rust-lang
 
 ===== What's a `Box`?
 
-Rust must know the size of everything at compile time. Since a `dyn [trait]` value has lost its concrete type (see: link:./chapter-10-traits.adoc[Chapter 10: From Mixins to Traits]), Rust can't know its size. It's "unsized." A reference, on the other hand, does have a concrete size. It's the size of a pointer. On a 32-bit machine its 32 bits. A 64-bit machine, it's 64 bits. I know, lin./images/blog/whoa.gif[whoa].
+Rust must know the size of everything at compile time. Since a `dyn [trait]` value has lost its concrete type (see: <<chapter-10,Chapter 10: From Mixins to Traits>>), Rust can't know its size. It's "unsized." A reference, on the other hand, does have a concrete size. It's the size of a pointer. On a 32-bit machine its 32 bits. A 64-bit machine, it's 64 bits. I know, lin./images/blog/whoa.gif[whoa].
 
 But we can't simply return a reference https://www.merriam-webster.com/dictionary/willy-nilly[willy nilly]. Referenced data has to live somewhere. If it lives in (is owned by) our function then Rust won't let us return a reference at all. The value's lifetime will be too short. We've dealt with lifetimes _all over_ this guide, they've just been https://doc.rust-lang.org/nomicon/lifetime-elision.html[hidden]. We haven't had to tackle them directly but we're getting closer.
 
@@ -73,11 +74,11 @@ fn render_markdown() -> Result<String, Box<dyn Error>> {
 }
 ----
 
-This often works, but if you remember from link:./chapter-13-result-and-option.adoc[Chapter 13: Results & Options], the `Result` type doesn't constrain the error's type. You will eventually encounter errors that do not implement the `Error` trait and this method falls flat.
+This often works, but if you remember from <<chapter-13,Chapter 13: Results & Options>>, the `Result` type doesn't constrain the error's type. You will eventually encounter errors that do not implement the `Error` trait and this method falls flat.
 
 ==== Option 2: Create your own custom Error type
 
-Using `dyn [trait]` crosses the `dyn` barrier which results in lost type information (link:/blog/node-to-rust-day-10-traits/#impl-vs-dyn[as you remember]). It's a handy way of getting code running but it's not a longterm solution.
+Using `dyn [trait]` crosses the `dyn` barrier which results in lost type information (<<impl-vs-dyn,as you remember>>). It's a handy way of getting code running but it's not a longterm solution.
 
 Creating your own error type gives you more control over what you want to expose externally or handle explicitly. Error types can be structs or enums. Custom errors that account for multiple errors will frequently be an enum or involve an enum internally (often called `ErrorKind`).
 
@@ -93,13 +94,13 @@ A good Rust citizen produces errors that implement the `Error` trait, which you 
 impl std::error::Error for MyError {}
 ----
 
-Have you committed VS Code's https://code.visualstudio.com/docs/editor/refactoring#_code-actions-quick-fixes-and-refactorings[`Quick fix`] we talked about it in link:./chapter-9-structs-and-behavior.adoc[Chapter 9] to muscle memory yet?
+Have you committed VS Code's https://code.visualstudio.com/docs/editor/refactoring#_code-actions-quick-fixes-and-refactorings[`Quick fix`] we talked about it in <<chapter-9,Chapter 9>> to muscle memory yet?
 
-image::./images/vs-code-impl-error.png[VS Code quick fix menu on impl Error for MyError]
+image::vs-code-impl-error.png[VS Code quick fix menu on impl Error for MyError]
 
 If so then that red squiggly line might have triggered you to go ahead and run the _Implement default members_ action.
 
-image::./images/vs-code-impl-error2.png[VS Code auto-filled Error implementation]
+image::vs-code-impl-error2.png[VS Code auto-filled Error implementation]
 
 Yikes. Good news, though: you can delete it. We don't need it. Those defaults are fine. The red squiggly line was actually because the `Error` trait has https://doc.rust-lang.org/beta/src/std/error.rs.html#55[two supertraits], `Display` and `Debug`, that need to be implemented.
 

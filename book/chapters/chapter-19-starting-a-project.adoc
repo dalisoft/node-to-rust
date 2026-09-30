@@ -1,8 +1,9 @@
+[[chapter-19]]
 = Tests and Project Structure
 
 == Introduction
 
-Over the last 18 days we got our environment set up with link:./chapter-1-rustup.adoc[rustup], link:./chapter-3-vscode.adoc[VS Code, and rust-analyzer]. We pushed through the tough parts of being a newbie Rust developer and just started learning which crates we should start depending on.
+Over the last 18 days we got our environment set up with <<chapter-1,rustup>>, <<chapter-3,VS Code, and rust-analyzer>>. We pushed through the tough parts of being a newbie Rust developer and just started learning which crates we should start depending on.
 
 Now it's time to set up a real project.
 
@@ -61,9 +62,9 @@ NOTE: Really? Yes, really. There are crates that extend Rust's testing functiona
 
 === Unit tests in Rust
 
-The library template introduces two new attributes, `#[cfg()]` and `#[test]`.
+The library template introduces two new attributes, `+#[cfg()]+` and `+#[test]+`.
 
-`[#cfg()]` is for conditional compilation. By specifying `#[cfg(test)]` before an entire module like below, we tell Rust to skip compiling the module unless the `test` flag is on.
+`+#[cfg()]+` is for conditional compilation. By specifying `+#[cfg(test)]+` before an entire module like below, we tell Rust to skip compiling the module unless the `test` flag is on.
 
 [source,rust]
 ----
@@ -129,7 +130,7 @@ error[E0433]: failed to resolve: use of undeclared type `Module`
 For more information about this error, try `rustc --explain E0433`.
 ----
 
-We need to add our `Module` struct, then our `from_file` function. We passed the function a `&str` in our test, but we probably want to be anything that can be represented as a `Path`. This sounds familiar to when we wanted to flexibly represent Strings in link:./chapter-12-strings-part2.adoc[Chapter 12: Strings, Part 2] and -- guess what? -- we can do the same thing with ``Path``s:
+We need to add our `Module` struct, then our `from_file` function. We passed the function a `&str` in our test, but we probably want to be anything that can be represented as a `Path`. This sounds familiar to when we wanted to flexibly represent Strings in <<chapter-12,Chapter 12: Strings, Part 2>> and -- guess what? -- we can do the same thing with ``Path``s:
 
 [source,rust]
 ----
@@ -202,7 +203,7 @@ use my_lib::Module;
 
 When you add this you'll already see VS Code complaining.
 
-image::./images/vs-code-private-module.png[VS Code complaining that an imported module is private]
+image::vs-code-private-module.png[VS Code complaining that an imported module is private]
 
 Our `Module` was not explicitly made public so we can't import it. This is one of the many reasons why it's a good idea to set up your projects this way. You get a first-hand view of what it's like to actually use your library. Add `pub` to `struct Module` and `fn from_file` in the `impl` as well. We know we'll need it right away.
 

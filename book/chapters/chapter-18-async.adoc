@@ -1,3 +1,4 @@
+[[chapter-18]]
 = Async in Rust
 
 == Introduction
@@ -228,7 +229,7 @@ error[E0310]: the parameter type `T` may not live long enough
     |
 ----
 
-We went over `'static` in link:./chapter-16-lifetimes-and-references.adoc[Chapter 16: Lifetimes, references, and `'static`] which is perfect. We now know that we shouldn't fear it. Rust knows that it doesn't know when our async code will run. It's telling us that our type (`parameter type `T``) _may_ not live long enough. That wording is important. We just need to let Rust know that the type _can_ last forever. Using `'static` here is not saying that it _will_ last forever.
+We went over `'static` in <<chapter-16,Chapter 16: Lifetimes, references, and `'static`>> which is perfect. We now know that we shouldn't fear it. Rust knows that it doesn't know when our async code will run. It's telling us that our type (`parameter type `T``) _may_ not live long enough. That wording is important. We just need to let Rust know that the type _can_ last forever. Using `'static` here is not saying that it _will_ last forever.
 
 [source,rust]
 ----

@@ -1,3 +1,4 @@
+[[chapter-21]]
 = Building and Running WebAssembly
 
 == Introduction
@@ -69,7 +70,7 @@ pub fn new(bytes: &[u8]) -> Result<Self, ???> {
 }
 ----
 
-But now we have a problem. It's the same type of problem we had in link:./chapter-14-managing-errors.adoc[Chapter 14: Managing Errors]. I know that `new()` will need to return a `Result` because loading any old list of bytes as WebAssembly may fail a thousand ways. None of those ways will be an `io::Error` like the one `from_file` returns. We need a general error that can capture multiple kinds.
+But now we have a problem. It's the same type of problem we had in <<chapter-14,Chapter 14: Managing Errors>>. I know that `new()` will need to return a `Result` because loading any old list of bytes as WebAssembly may fail a thousand ways. None of those ways will be an `io::Error` like the one `from_file` returns. We need a general error that can capture multiple kinds.
 
 Time for a custom error.
 

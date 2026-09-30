@@ -1,3 +1,4 @@
+[[chapter-7]]
 = Language Part 1: Syntax & Differences
 
 == Introduction

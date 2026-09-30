@@ -1,3 +1,4 @@
+[[chapter-1]]
 = Installing rust with `rustup`
 
 https://github.com/nvm-sh/nvm[nvm] (or https://github.com/coreybutler/nvm-windows[nvm-windows]) are indispensible tools. They manage seamlessly installing and switching between versions of node.js on the same system.
@@ -90,4 +91,4 @@ components = [ "rustfmt", "clippy" ]
 
 == Next steps
 
-Next up we'll take a look at `cargo`, Rust's `npm` and the additional tools that will help reach parity with common workflows: link:./chapter-2-cargo.adoc[Chapter 2: From npm to cargo].
+Next up we'll take a look at `cargo`, Rust's `npm` and the additional tools that will help reach parity with common workflows: <<chapter-2,Chapter 2: From npm to cargo>>.

@@ -1,3 +1,4 @@
+[[chapter-17]]
 = Arrays, Loops, and Iterators
 
 == Introduction
@@ -73,7 +74,7 @@ for i in 0..max {
 
 === `for…in`
 
-Rust doesn't have the same kinds of `Object` types that JavaScript has. There's no real way of iterating over the properties of arbitrary objects. Rust does have Map types like `HashMap` though (see link:./chapter-8-types-hashmaps-and-structs.adoc[Chapter 8]). You can use the `.keys()` method to get an iterator over the map's keys.
+Rust doesn't have the same kinds of `Object` types that JavaScript has. There's no real way of iterating over the properties of arbitrary objects. Rust does have Map types like `HashMap` though (see <<chapter-8,Chapter 8>>). You can use the `.keys()` method to get an iterator over the map's keys.
 
 NOTE: `.keys()` visits keys in arbitrary order. You don't get a say in this.
 
@@ -347,7 +348,7 @@ let doubled: Vec<i32>= list.iter().map(|num| num * 2).collect();
 
 Well, you don't. It turns out that Rust does indeed know the type of its elements, but it has no knowledge of what its new wrapper should be. It's not the `i32` part of the type that Rust needs annotated, it's the `Vec<>` part. Just because we started with a `Vec` doesn't mean we will always want one when we're done.
 
-When Rust knows one type but not another, you can omit it with an underscore (`_`), e.g `Vec<_>`,
+When Rust knows one type but not another, you can omit it with an underscore (`+_+`), e.g `+Vec<_>+`,
 
 [source,rust]
 ----
@@ -656,7 +657,7 @@ impl Names {
 }
 ----
 
-NOTE: Confused about `AsRef<str>`? Head back to link:./chapter-12-strings-part2.adoc[Chapter 12: Strings, Part 2] to brush up.
+NOTE: Confused about `AsRef<str>`? Head back to <<chapter-12,Chapter 12: Strings, Part 2>> to brush up.
 
 
 === Additional reading

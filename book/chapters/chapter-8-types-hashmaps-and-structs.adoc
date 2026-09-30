@@ -1,3 +1,4 @@
+[[chapter-8]]
 = From objects and classes to HashMaps and structs
 
 == Introduction
@@ -72,7 +73,7 @@ Which is _kind of_ what we wanted.
 
 === `Some()`, `None`, and `Option`
 
-Take a look at that `Some()` craziness. What in the world was that about? `Some` is a variant of the https://doc.rust-lang.org/std/option/enum.Option.html[`Option` enum]. ``Option``s are another way of representing _nothing_ like we talked in link:./chapter-7-syntax-and-language.adoc[Chapter 7: Language Part 1: Syntax & Differences].
+Take a look at that `Some()` craziness. What in the world was that about? `Some` is a variant of the https://doc.rust-lang.org/std/option/enum.Option.html[`Option` enum]. ``Option``s are another way of representing _nothing_ like we talked in <<chapter-7,Chapter 7: Language Part 1: Syntax & Differences>>.
 
 NOTE: An enum (short for enumeration) is a bound list of possible values, or variants. JavaScript doesn't have them, but https://www.typescriptlang.org/docs/handbook/enums.html[TypeScript does]. Rust enums are cooler, though.
 

@@ -1,3 +1,4 @@
+[[chapter-0]]
 = Introduction
 
 == A guide to Rust from a node.js developer's perspective.

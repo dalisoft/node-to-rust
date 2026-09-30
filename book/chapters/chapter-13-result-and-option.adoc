@@ -1,3 +1,4 @@
+[[chapter-13]]
 = Demystifying Results & Options
 
 == Introduction
@@ -8,7 +9,7 @@ Nothingness is like an expected error case for functions that can return either 
 
 == `Option` recap
 
-If you've gotten this far without exploring enums, you are going to need to brush up quickly with the links in the <<additional-reading,additional reading>> section.
+If you've gotten this far without exploring enums, you are going to need to brush up quickly with the links in the <<chapter-13-additional-reading,additional reading>> section.
 
 Rust enums differ from many other language implementations. They can represent rich and varied values and carry around behavior just like any struct. The `Option` enum is defined in just a few lines https://doc.rust-lang.org/src/core/option.rs.html#514-523[here]:
 
@@ -304,10 +305,11 @@ fn render_markdown() -> Result<String, std::io::Error> {
 
 We've added one line to get the value of an environment variable named `"MARKDOWN"`. That function will fail if no such variable exists. We use another question mark (`?`) to short circuit but now we have a compilation error: ``?` could not convert the error to std::io::Error`...
 
-image::./images/vs-code-conversion-error.png[Visual Studio code showing that `?` could not convert the error to std::io::Error]
+image::vs-code-conversion-error.png[Visual Studio code showing that `?` could not convert the error to std::io::Error]
 
 That error leaves us at another Rust *WTF*-juncture. A WTFuncture. A Rust-T-F. You understand ``Option``s and ``Result``s. They're not that scary, but how the heck do you deal with all the different errors? We'll get to that in the next chapter.
 
+[[chapter-13-additional-reading]]
 === Additional reading
 
 * https://doc.rust-lang.org/book/ch06-00-enums.html[The Rust Book: ch 06 - Enums]

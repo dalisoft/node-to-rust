@@ -1,3 +1,4 @@
+[[chapter-12]]
 = Strings, Part 2
 
 == Introduction
@@ -123,7 +124,7 @@ There's zero difference between the `where` syntax and the `<T: ToString>` synta
 
 ==== For functions that expect a mix of string literals and ``String``s
 
-If you didn't read this section, you wouldn't lose much. Using the `ToString` method covers a lot of cases. You do however open your users up to the same concerns we described with using `.to_string()` to convert `&str` to `String` in link:./chapter-6-strings-part1.adoc[Chapter 6: Strings, Part 1]. Many structs implement `Display`. A user could pass a lot of objects to the function above without the compiler complaining. Additionally, implementations of `.to_string()` may not always be cheap. Your users don't necessarily know the internals of your code. You might be doing a lot of extra work for no good reason.
+If you didn't read this section, you wouldn't lose much. Using the `ToString` method covers a lot of cases. You do however open your users up to the same concerns we described with using `.to_string()` to convert `&str` to `String` in <<chapter-6,Chapter 6: Strings, Part 1>>. Many structs implement `Display`. A user could pass a lot of objects to the function above without the compiler complaining. Additionally, implementations of `.to_string()` may not always be cheap. Your users don't necessarily know the internals of your code. You might be doing a lot of extra work for no good reason.
 
 Since we already learned that a `&String` can take the place of a `&str`, we can generalize our inputs to anything that can be borrowed like a `str`.
 

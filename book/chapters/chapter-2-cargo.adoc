@@ -1,3 +1,4 @@
+[[chapter-2]]
 = From npm to cargo
 
 == Introduction
@@ -166,4 +167,4 @@ While not a `cargo xxx` command, it's useful for querying data in `.toml` files 
 
 == Wrap-up
 
-The `npm` → `cargo` mapping is straightforward when you add `cargo-edit` and accept the lack of a standard task runner. In the next chapter we'll go over how to get your environment working with Visual Studio Code: link:./chapter-3-vscode.adoc[Chapter 3: Setting up VS Code].
+The `npm` → `cargo` mapping is straightforward when you add `cargo-edit` and accept the lack of a standard task runner. In the next chapter we'll go over how to get your environment working with Visual Studio Code: <<chapter-3,Chapter 3: Setting up VS Code>>.

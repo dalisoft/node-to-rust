@@ -1,3 +1,4 @@
+[[chapter-23]]
 = Cheating The Borrow Checker
 
 == Introduction

@@ -4,6 +4,38 @@ This repository houses an ebook-ified version of the 24+ post series started on 
 
 ## How to build
 
+### Repaired EPUB / AZW3 toolchain
+
+Use Ruby 4.0.7 (or a compatible Ruby >= 3.3 already installed) and Python 3.
+No system gems, packages, or personal Calibre library are needed.
+Dependencies are pinned in `Gemfile.lock` and installed only under `vendor/`:
+
+```sh
+make deps
+make book-epub
+make ebooks
+```
+
+The last command also requires an existing `ebook-convert` executable, or
+`EBOOK_CONVERT=/absolute/path/to/project-local/ebook-convert`. On macOS an
+existing Calibre application converter is detected. Its configuration/cache is
+temporary; no library is read or modified, and the script never installs it.
+
+Outputs are in `output/`. Validation rejects broken internal links, missing
+images, malformed XHTML, lost original headings/code blocks, or source images
+not packaged byte-for-byte. Code highlighting, author styles and original
+content are retained. Explicit chapter anchors, packaged image paths, language
+metadata and revision-date syntax repair the original EPUB defects.
+
+CI validates both formats and publishes `release-YYYY-MM-DD` releases on
+`master` updates, manual runs, and daily around 09:00 GMT+5 (04:07 UTC).
+GitHub schedules may run late. Unchanged source and toolchain hashes skip
+dependency setup, conversion and publication with a successful exit. Pull
+requests only validate/upload artifacts. Release assets include SHA-256 hashes
+in `build-manifest.json`. The CI converter is installed in `.cache/`, with
+isolated configuration and no personal Calibre library access. Existing
+PDF/source archives remain reference inputs; build helpers do not overwrite them.
+
 The ebook is built using [asciidoctor](https://docs.asciidoctor.org/) and requires ruby >2.3.
 
 Install the ruby dependencies via `make deps`

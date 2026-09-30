@@ -1,3 +1,4 @@
+[[chapter-24]]
 = Crates & Valuable Tools
 
 == Introduction

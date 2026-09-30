@@ -1,3 +1,4 @@
+[[chapter-9]]
 = Enums and Methods
 
 == Introduction
@@ -179,7 +180,7 @@ error[E0594]: cannot assign to `self.color`, which is behind a `&` reference
 For more information about this error, try `rustc --explain E0594`.
 ----
 
-What we need is a mutable reference (see link:./chapter-5-ownership.adoc[Chapter 5: Borrowing & Ownership]).
+What we need is a mutable reference (see <<chapter-5,Chapter 5: Borrowing & Ownership>>).
 
 We need `&mut self`.
 
@@ -374,13 +375,13 @@ impl Display for TrafficLightColor {}
 
 If your code follows along with ours, VS Code will complain at `Display`, saying `"cannot find trait `Display` in this scope"`. Place your cursor on display and press `Ctrl+.` (or hover and press "Quick fix"). If rust-analyzer has any suggestions, you'll see them in a drop down menu.
 
-image::./images/vs-code-quick-code-import.png[Drop down showing "Import Display"]
+image::vs-code-quick-code-import.png[Drop down showing "Import Display"]
 
 Select `Import Display` and select `std::fmt::Display` from the next drop down. VS Code will take care of adding the `use std::fmt::Display;` line at the top of your file. Nice! Free code!
 
 But now we have an even longer squiggly red line.
 
-image::./images/vs-code-quick-code-impl-display.png[Line showing error for Display impl]
+image::vs-code-quick-code-impl-display.png[Line showing error for Display impl]
 
 Do the `Ctrl+.` shuffle once again, select `Implement missing members` and voila! You've got the boilerplate out of the way.
 

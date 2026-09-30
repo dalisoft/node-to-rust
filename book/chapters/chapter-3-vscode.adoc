@@ -1,3 +1,4 @@
+[[chapter-3]]
 = Setting up Visual Studio Code
 
 == Introduction
@@ -34,7 +35,7 @@ If you create a new file in a Rust project, e.g. `my_module.rs`, you'll notice t
 
 You can edit your settings via a UI or as JSON by opening the command palette with `Ctrl+Shift+P`, typing `settings` and selecting which you want. See the https://code.visualstudio.com/docs/getstarted/settings[VS Code documentation] for more info.
 
-image::./images/node-to-rust-vscode-settings.png[VS Code settings in the command palette]
+image::node-to-rust-vscode-settings.png[VS Code settings in the command palette]
 
 The UI is a great way to explore settings, while JSON is more convenient for rapid editing and sharing. The settings below assume JSON.
 
@@ -55,7 +56,7 @@ You can run `cargo clippy` yourself or set rust-analyzer to run `clippy` on save
 
 For me, rust-analyzer's inlay hints add too much noise. I turn them off.
 
-image::./images/vs-code-inlay-hints.png[Inlay hints]
+image::vs-code-inlay-hints.png[Inlay hints]
 
 It's a matter of preference. Just know that it's configurable if you look at your source and think "whoa, what is going on." The first setting here disables everything, but you can disable individual hints with lines that follow.
 
@@ -85,7 +86,7 @@ Rust-analyzer keeps itself up to date automatically, but I like controlling that
 
 You'll need to install https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb[vadimcn.vscode-lldb] before you can meaningfully debug Rust applications.
 
-image::./images/vs-code-debugging.png[Debugging]
+image::vs-code-debugging.png[Debugging]
 
 Install with `Ctrl+Shift+P` then:
 
