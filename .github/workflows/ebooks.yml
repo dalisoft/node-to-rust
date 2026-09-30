@@ -39,10 +39,11 @@ jobs:
           for deb in .cache/calibre-debs/*.deb; do
             dpkg-deb -x "$deb" .cache/calibre-libs
           done
+          export LD_LIBRARY_PATH="$PWD/.cache/calibre-libs/usr/lib/x86_64-linux-gnu"
           curl --fail --location --show-error --silent \
             --output .cache/calibre-installer.sh https://download.calibre-ebook.com/linux-installer.sh
           sh .cache/calibre-installer.sh "install_dir=$PWD/.cache/calibre" isolated=y version=9.15.0
-          echo "LD_LIBRARY_PATH=$PWD/.cache/calibre-libs/usr/lib/x86_64-linux-gnu" >> "$GITHUB_ENV"
+          echo "LD_LIBRARY_PATH=$LD_LIBRARY_PATH" >> "$GITHUB_ENV"
           echo "EBOOK_CONVERT=$PWD/.cache/calibre/calibre/ebook-convert" >> "$GITHUB_ENV"
           echo 'QT_QPA_PLATFORM=offscreen' >> "$GITHUB_ENV"
       - if: steps.inputs.outputs.changed == 'true'
