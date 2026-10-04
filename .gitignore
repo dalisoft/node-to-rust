@@ -3,7 +3,6 @@ target
 **/*/node_modules
 vendor
 .bundle
-Gemfile.lock
 output
 .cache
 .DS_Store
