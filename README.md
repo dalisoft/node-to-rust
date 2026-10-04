@@ -6,7 +6,7 @@ This repository houses an ebook-ified version of the 24+ post series started on 
 
 ### Repaired EPUB / AZW3 toolchain
 
-Use Ruby 4.0.7 (or a compatible Ruby >= 3.3 already installed) and Python 3.
+Use Ruby 4.0.7 (or a compatible Ruby >= 3.3 already installed).
 No system gems, packages, or personal Calibre library are needed.
 Dependencies are pinned in `Gemfile.lock` and installed only under `vendor/`:
 

@@ -21,8 +21,7 @@ case "${1:-build}" in
       > output/epub-build.log 2>&1
     cat output/epub-build.log
     if grep -E 'asciidoctor: (ERROR|WARNING)' output/epub-build.log; then exit 1; fi
-    python3 scripts/check-epub-links.py output/from-javascript-to-rust.epub
-    python3 scripts/check-content.py
+    bundle exec ruby scripts/validate.rb
     if [ "${1:-build}" = epub ]; then exit 0; fi
     converter=${EBOOK_CONVERT:-$(command -v ebook-convert || true)}
     if [ -z "$converter" ] && [ -x /Applications/calibre.app/Contents/MacOS/ebook-convert ]; then
@@ -41,7 +40,7 @@ case "${1:-build}" in
       --minimum-line-height 0 --margin-top -1 --margin-bottom -1 --margin-left -1 --margin-right -1 \
       --chapter-mark none --page-breaks-before /
     "$(dirname "$converter")/ebook-meta" output/from-javascript-to-rust.azw3
-    python3 scripts/check-azw3.py "$(dirname "$converter")/calibre-debug"
+    bundle exec ruby scripts/validate.rb "$(dirname "$converter")/calibre-debug"
     ;;
   *) echo 'Usage: sh scripts/ebooks.sh deps|epub|build' >&2; exit 2 ;;
 esac
