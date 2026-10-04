@@ -14,18 +14,23 @@ pub struct Module {
 
 impl Module {
     pub fn new(bytes: &[u8]) -> Result<Self, Error> {
-        let engine = wasmtime_provider::WasmtimeEngineProvider::new(bytes, None);
+        let engine = wasmtime_provider::WasmtimeEngineProviderBuilder::new()
+            .module_bytes(bytes)
+            .build()?;
 
-        let host = WapcHost::new(Box::new(engine), |_id, binding, ns, operation, payload| {
-            trace!(
-                "Guest called: binding={}, namespace={}, operation={}, payload={:?}",
-                binding,
-                ns,
-                operation,
-                payload
-            );
-            Err("Not implemented".into())
-        })?;
+        let host = WapcHost::new(
+            Box::new(engine),
+            Some(Box::new(|_id, binding, ns, operation, payload| {
+                trace!(
+                    "Guest called: binding={}, namespace={}, operation={}, payload={:?}",
+                    binding,
+                    ns,
+                    operation,
+                    payload
+                );
+                Err("Not implemented".into())
+            })),
+        )?;
         Ok(Module { host })
     }
 
@@ -58,7 +63,7 @@ mod tests {
 
         let bytes = rmp_serde::to_vec("World").unwrap();
         let payload = module.run("hello", &bytes)?;
-        let unpacked: String = rmp_serde::decode::from_read_ref(&payload).unwrap();
+        let unpacked: String = rmp_serde::from_slice(&payload).unwrap();
         assert_eq!(unpacked, "Hello, World.");
         Ok(())
     }

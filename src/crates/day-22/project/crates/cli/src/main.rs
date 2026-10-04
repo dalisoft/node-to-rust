@@ -1,30 +1,24 @@
 use std::{fs, path::PathBuf};
 
+use clap::Parser;
 use my_lib::Module;
-use structopt::{clap::AppSettings, StructOpt};
 
 #[macro_use]
 extern crate log;
 
-#[derive(StructOpt)]
-#[structopt(
+#[derive(Parser)]
+#[command(
     name = "wasm-runner",
-    about = "Sample project from https://vino.dev/blog/node-to-rust-day-1-rustup/",
-    global_settings(&[
-      AppSettings::ColoredHelp
-    ]),
+    about = "Sample project from https://vino.dev/blog/node-to-rust-day-1-rustup/"
 )]
 struct CliOptions {
     /// The WebAssembly file to load.
-    #[structopt(parse(from_os_str))]
     pub(crate) file_path: PathBuf,
 
     /// The operation to invoke in the WASM file.
-    #[structopt()]
     pub(crate) operation: String,
 
     /// The path to the JSON data to use as input.
-    #[structopt(parse(from_os_str))]
     pub(crate) json_path: PathBuf,
 }
 
@@ -32,7 +26,7 @@ fn main() {
     env_logger::init();
     debug!("Initialized logger");
 
-    let options = CliOptions::from_args();
+    let options = CliOptions::parse();
 
     match run(options) {
         Ok(output) => {
@@ -58,7 +52,7 @@ fn run(options: CliOptions) -> anyhow::Result<serde_json::Value> {
 
     debug!("Running  {} with payload: {:?}", options.operation, bytes);
     let result = module.run(&options.operation, &bytes)?;
-    let unpacked: serde_json::Value = rmp_serde::from_read_ref(&result)?;
+    let unpacked: serde_json::Value = rmp_serde::from_slice(&result)?;
 
     Ok(unpacked)
 }

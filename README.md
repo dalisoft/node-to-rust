@@ -12,10 +12,10 @@ Install the ruby dependencies via `make deps`
 $ make deps
 ```
 
-Build a PDF via the command `make book`
+Build an EPUB via the command `make book-epub`
 
 ```console
-$ make book
+$ make book-epub
 ```
 
 ## Running code and projects

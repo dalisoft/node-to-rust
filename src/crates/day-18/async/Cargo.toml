@@ -28,12 +28,6 @@ test = false
 name = "send-sync"
 
 [[bin]]
-path = "./src/send-sync2.rs"
-harness = false
-test = false
-name = "send-sync2"
-
-[[bin]]
 path = "./src/lazy.rs"
 harness = false
 test = false

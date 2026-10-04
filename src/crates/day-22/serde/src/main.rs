@@ -19,6 +19,6 @@ fn main() {
 
     let deserialized_json: Author = serde_json::from_str(&serialized_json).unwrap();
     println!("Deserialized from JSON: {:?}", deserialized_json);
-    let deserialized_mp: Author = rmp_serde::from_read_ref(&serialized_mp).unwrap();
+    let deserialized_mp: Author = rmp_serde::from_slice(&serialized_mp).unwrap();
     println!("Deserialized from MessagePack: {:?}", deserialized_mp);
 }

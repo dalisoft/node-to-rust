@@ -8,8 +8,8 @@ edition = "2021"
 [dependencies]
 log = "0.4"
 thiserror = "1.0"
-wapc = "0.10.1"
-wasmtime-provider = "0.0.7"
+wapc = "2.2"
+wasmtime-provider = "~2.11.0"
 
 [dev-dependencies]
-rmp-serde = "0.15"
+rmp-serde = "1.3"

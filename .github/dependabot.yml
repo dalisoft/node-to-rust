@@ -10,3 +10,15 @@ updates:
     directory: /
     schedule:
       interval: daily
+
+  - package-ecosystem: cargo
+    directories:
+      - /src
+      - /src/crates/day-19/project
+      - /src/crates/day-20/project
+      - /src/crates/day-21/project
+      - /src/crates/day-21/wapc-guest
+      - /src/crates/day-22/project
+      - /src/crates/day-22/wapc-guest
+    schedule:
+      interval: daily

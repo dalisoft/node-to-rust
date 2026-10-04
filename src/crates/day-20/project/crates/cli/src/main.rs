@@ -1,22 +1,18 @@
 use std::path::PathBuf;
 
+use clap::Parser;
 use my_lib::Module;
-use structopt::{clap::AppSettings, StructOpt};
 
 #[macro_use]
 extern crate log;
 
-#[derive(StructOpt)]
-#[structopt(
+#[derive(Parser)]
+#[command(
     name = "wasm-runner",
-    about = "Sample project from https://vino.dev/blog/node-to-rust-day-1-rustup/",
-    global_settings(&[
-      AppSettings::ColoredHelp
-    ]),
+    about = "Sample project from https://vino.dev/blog/node-to-rust-day-1-rustup/"
 )]
 struct CliOptions {
     /// The WebAssembly file to load.
-    #[structopt(parse(from_os_str))]
     pub(crate) file_path: PathBuf,
 }
 
@@ -24,7 +20,7 @@ fn main() {
     env_logger::init();
     debug!("Initialized logger");
 
-    let options = CliOptions::from_args();
+    let options = CliOptions::parse();
 
     match Module::from_file(&options.file_path) {
         Ok(_) => {
