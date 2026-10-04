@@ -11,12 +11,9 @@ book:
 
 .PHONY: book-epub
 book-epub:
-	sh scripts/ebooks.sh epub
-
-.PHONY: ebooks
-ebooks:
-	sh scripts/ebooks.sh build
+	bundle exec asciidoctor-epub3 -a source-highlighter=rouge book/book.adoc --o from-javascript-to-rust.epub
 
 .PHONY: deps
 deps:
-	sh scripts/ebooks.sh deps
+	bundle install
+

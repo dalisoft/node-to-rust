@@ -6,21 +6,25 @@ export GEM_HOME="$PWD/vendor/gems"
 export GEM_PATH="$GEM_HOME"
 export BUNDLE_USER_HOME="$PWD/vendor/bundler-home"
 export BUNDLE_PATH="$PWD/vendor/bundle"
+export BUNDLE_GEMFILE="$PWD/Gemfile"
 export PATH="$GEM_HOME/bin:$PATH"
 ruby -e 'abort "Ruby >= 3.3 required (see .ruby-version)" if Gem::Version.new(RUBY_VERSION) < Gem::Version.new("3.3")'
 case "${1:-build}" in
   deps)
     gem install bundler -v 4.0.22 --no-document
-    bundle install
+    make deps
     ;;
   epub|build)
     bundle check
     mkdir -p output
-    bundle exec asciidoctor-epub3 -a source-highlighter=rouge \
-      -o output/from-javascript-to-rust.epub book/book.adoc \
+    temp_dir=$(mktemp -d)
+    trap 'rm -r "$temp_dir"' EXIT
+    ln -s "$PWD/book" "$temp_dir/book"
+    make --no-print-directory -f "$PWD/Makefile" -C "$temp_dir" book-epub \
       > output/epub-build.log 2>&1
     cat output/epub-build.log
     if grep -E 'asciidoctor: (ERROR|WARNING)' output/epub-build.log; then exit 1; fi
+    mv "$temp_dir/from-javascript-to-rust.epub" output/from-javascript-to-rust.epub
     bundle exec ruby scripts/validate.rb
     if [ "${1:-build}" = epub ]; then exit 0; fi
     converter=${EBOOK_CONVERT:-$(command -v ebook-convert || true)}
@@ -31,8 +35,6 @@ case "${1:-build}" in
       echo 'Set EBOOK_CONVERT to an existing/project-local converter; no library is used.' >&2
       exit 1
     fi
-    temp_dir=$(mktemp -d)
-    trap 'rm -r "$temp_dir"' EXIT
     export CALIBRE_CONFIG_DIRECTORY="$temp_dir/config"
     export CALIBRE_CACHE_DIRECTORY="$temp_dir/cache"
     "$converter" output/from-javascript-to-rust.epub output/from-javascript-to-rust.azw3 \

@@ -5,7 +5,7 @@ cd "$(dirname "$0")/.."
 temp_dir=$(mktemp -d)
 trap 'rm -r "$temp_dir"' EXIT
 assets=(from-javascript-to-rust.epub from-javascript-to-rust.azw3)
-git ls-files -z book scripts .github/workflows/ebooks.yml Gemfile Gemfile.lock \
+git ls-files -z book scripts .github/workflows/ebooks.yml Gemfile Makefile \
   .ruby-version from-javascript-to-rust.epub > "$temp_dir/inputs"
 fingerprint=$(
   while IFS= read -r -d '' name; do
