@@ -12,4 +12,4 @@ wapc = "0.10.1"
 wasmtime-provider = "0.0.7"
 
 [dev-dependencies]
-rmp-serde = "0.15"
+rmp-serde = "1.1"

@@ -10,6 +10,6 @@ my-lib = { path = "../my-lib" }
 log = "0.4"
 env_logger = "0.9"
 structopt = "0.3"
-rmp-serde = "0.15"
+rmp-serde = "1.1"
 anyhow = "1.0"
 serde_json = "1.0"
