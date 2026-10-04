@@ -28,7 +28,7 @@ content are retained. Explicit chapter anchors, packaged image paths, language
 metadata and revision-date syntax repair the original EPUB defects.
 
 CI validates both formats and publishes `release-YYYY-MM-DD` releases on
-`master` updates, manual runs, and daily around 09:00 GMT+5 (04:07 UTC).
+`master` updates, manual runs, and daily at 05:00 GMT+5 (00:00 UTC, GitHub's default timezone).
 GitHub schedules may run late. Unchanged source and toolchain hashes skip
 dependency setup, conversion and publication with a successful exit. Pull
 requests only validate/upload artifacts. Release assets include SHA-256 hashes
