@@ -5,6 +5,7 @@ require 'digest'
 require 'pathname'
 require 'uri'
 require 'tmpdir'
+require 'fileutils'
 
 ROOT = File.expand_path('..', __dir__)
 BOOK = 'from-javascript-to-rust'
@@ -115,6 +116,17 @@ def validate_metadata(epub)
     actual = metadata.at_xpath("//dc:#{field}", DC_NAMESPACE)&.text
     raise "Incorrect #{field}: #{actual.inspect}" unless actual == expected
   end
+
+  package = metadata.remove_namespaces!
+  cover_id = package.at_xpath('//meta[@name="cover"]')&.[]('content')
+  cover = package.at_xpath('//item[@properties="cover-image"]') ||
+    package.xpath('//manifest/item').find { |item| item['id'] == cover_id }
+  raise 'EPUB has no declared cover image' unless cover
+
+  cover_path = Pathname.new(File.join(File.dirname(container.at_xpath('//rootfile')['full-path']), cover['href'])).cleanpath.to_s
+  unless Digest::SHA256.hexdigest(epub.fetch(cover_path)) == Digest::SHA256.file('book/images/cover.png').hexdigest
+    raise 'EPUB cover does not match the author artwork'
+  end
 end
 
 def validate_images(epub)
@@ -146,6 +158,16 @@ def validate_azw3(converter, epub, documents)
     raise 'AZW3 images lost' unless Dir.glob("#{target}/images/*").size >= image_count
 
     puts "AZW3 preserves EPUB headings/code and #{image_count} images"
+
+    # The inspection flag also rewrites metadata, so inspect only a disposable copy.
+    inspection = File.join(folder, 'cover-check.azw3')
+    cover = File.join(folder, 'cover.jpg')
+    FileUtils.cp("output/#{BOOK}.azw3", inspection)
+    system(File.join(File.dirname(converter), 'ebook-meta'), inspection,
+      '--get-cover', cover, '--disallow-rendered-cover', exception: true)
+    raise 'AZW3 has no embedded cover' unless File.size?(cover)
+
+    puts 'EPUB author cover and native AZW3 cover verified'
   end
 end
 

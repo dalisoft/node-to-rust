@@ -55,6 +55,7 @@ case "${1:-build}" in
     export CALIBRE_CACHE_DIRECTORY="$temp_dir/cache"
 
     "$converter" output/from-javascript-to-rust.epub output/from-javascript-to-rust.azw3 \
+      --cover book/images/cover.png \
       --output-profile kindle_pw3 --disable-font-rescaling --disable-remove-fake-margins \
       --minimum-line-height 0 --margin-top -1 --margin-bottom -1 --margin-left -1 --margin-right -1 \
       --chapter-mark none --page-breaks-before /
